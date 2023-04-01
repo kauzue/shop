@@ -1,12 +1,14 @@
 #pragma once
 struct Member
 {
-	char ID;
-	char password;
+	char ID[100];
+	char password[100];
+	int account;
 	int balance;
 
 }member;
 
-void menu();
-void rogin();
-void signup();
+void RoginMenu();
+void SignIn();
+void SignUp();
+void Menu();
