@@ -3,7 +3,7 @@ struct Member
 {
 	char ID[100];
 	char password[100];
-	int account;
+	char account[20];
 	int balance;
 
 }member;
