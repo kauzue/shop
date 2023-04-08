@@ -10,7 +10,44 @@ static int s_num_members;
 
 void Init()
 {
+	int ch = 0;
 
+	FILE* fp = fopen("member.txt", "rt");
+
+	if (fp == NULL) {
+		puts("파일오픈 실패!");
+		return -1;
+	}
+
+	while (fgetc(fp) != EOF) {
+		if (fgetc(fp) == '\n') {
+			ch++;
+		}
+	}
+
+	fseek(fp, 0, SEEK_SET);
+
+	s_num_members = ch / 3;
+
+	for (int i = 0; i < s_num_members; ++i) {
+		fseek(fp, 4, SEEK_CUR);
+		for (ch = 1; fgetc(fp) != '\n'; ch++);
+		fseek(fp, -ch, SEEK_CUR);
+		fgets(s_members[i].ID, ch -1, fp);
+
+		fseek(fp, 12, SEEK_CUR);
+		for (ch = 1; fgetc(fp) != '\n'; ch++);
+		fseek(fp, -ch, SEEK_CUR);
+		fgets(s_members[i].password, ch -1, fp);
+
+		fseek(fp, 11, SEEK_CUR);
+		for (ch = 1; fgetc(fp) != '\n'; ch++);
+		fseek(fp, -ch, SEEK_CUR);
+		fgets(s_members[i].account, ch -1, fp);
+	}
+
+	fclose(fp);
+	OpenRoginMenu();
 }
 
 void OpenRoginMenu()
@@ -106,7 +143,6 @@ void OpenMenu()
 
 	system("cls");
 	OpenMenu();
-
 }
 
 void RegistItem()
@@ -161,7 +197,7 @@ void SignIn()
 
 void SignUp()
 {
-	FILE* fp = fopen("memebr.txt", "at");
+	FILE* fp = fopen("member.txt", "at");
 
 	if (fp == NULL) {
 		puts("파일오픈 실패!");
@@ -177,8 +213,6 @@ void SignUp()
 	printf("ID : ");
 	scanf("%s", member.ID);
 
-	system("cls");
-
 	for (int i = 0; i < s_num_members; ++i) {
 		if (strcmp(member.ID, s_members[i].ID) == 0) {
 			ID = 0;
@@ -191,8 +225,9 @@ void SignUp()
 	}
 
 	else {
-		printf("중복되는 아이디 입니다. \n");
-		printf("다시 입력해 주세요.");
+		system("cls");
+		printf("중복되는 아이디입니다. \n");
+		printf("다시 입력해주세요.");
 		Sleep(1250);
 		system("cls");
 		SignUp();
@@ -218,16 +253,34 @@ void SignUp()
 		printf("*****계좌번호***** \n \n");
 		printf("Account : ");
 		scanf("%s", member.account);
-		fprintf(fp, "account : %s\n", member.account);
+
+		for (int i = 0; i < s_num_members; ++i) {
+			if (strcmp(member.account, s_members[i].account) == 0) {
+				ID = 0;
+				break;
+			}
+		}
+
+		if (ID) {
+			fprintf(fp, "account : %s\n", member.account);
+		}
+
+		else {
+			system("cls");
+			printf("중복되는 계좌번호입니다. \n");
+			printf("다시 입력해주세요.");
+			Sleep(1250);
+			system("cls");
+			SignUp();
+		}
 		break;
 
 	default:
+		fprintf(fp, "account : \n");
 		break;
 	}
 
 	fclose(fp);
-
 	system("cls");
-
-	OpenRoginMenu();
+	Init();
 }

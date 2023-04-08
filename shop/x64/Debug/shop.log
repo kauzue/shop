@@ -1,6 +1,7 @@
 ﻿  system.c
-C:\Users\BIT\Desktop\shop\shop\system.c(43,12): warning C4098: 'OpenRoginMenu': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\BIT\Desktop\shop\shop\system.c(90,12): warning C4098: 'OpenMenu': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\BIT\Desktop\shop\shop\system.c(128,12): warning C4098: 'SignIn': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\BIT\Desktop\shop\shop\system.c(168,12): warning C4098: 'SignUp': 'void' 함수에서 값을 반환하고 있습니다.
-  shop.vcxproj -> C:\Users\BIT\Desktop\shop\x64\Debug\shop.exe
+C:\Users\kauzu\source\repos\shop\shop\system.c(19,12): warning C4098: 'Init': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\kauzu\source\repos\shop\shop\system.c(80,12): warning C4098: 'OpenRoginMenu': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\kauzu\source\repos\shop\shop\system.c(127,12): warning C4098: 'OpenMenu': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\kauzu\source\repos\shop\shop\system.c(164,12): warning C4098: 'SignIn': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\kauzu\source\repos\shop\shop\system.c(204,12): warning C4098: 'SignUp': 'void' 함수에서 값을 반환하고 있습니다.
+  shop.vcxproj -> C:\Users\kauzu\source\repos\shop\x64\Debug\shop.exe
