@@ -276,7 +276,7 @@ void SignUp()
 		break;
 
 	default:
-		fprintf(fp, "account : \n");
+		fprintf(fp, "account :\n");
 		break;
 	}
 
