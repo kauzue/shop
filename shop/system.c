@@ -20,7 +20,7 @@ void Init()
 	FILE* mb = fopen("member.bin", "rb");
 
 	if (it == NULL || mb == NULL) {
-		puts("ÆÄÀÏ¿ÀÇÂ ½ÇÆĞ!");
+		puts("íŒŒì¼ì˜¤í”ˆ ì‹¤íŒ¨!!!!!!!!!!!!!!");
 		return;
 	}
 
@@ -66,11 +66,11 @@ void OpenRoginMenu()
 {
 	int choice = 0;
 
-	printf("·Î±×ÀÎ ¸Ş´º \n \n");
-	printf("1. ·Î±×ÀÎ \n");
-	printf("2. È¸¿ø°¡ÀÔ \n");
-	printf("3. Ãë¼Ò \n \n");
-	printf("¼±ÅÃ: ");
+	printf("ë¡œê·¸ì¸ ë©”ë‰´ \n \n");
+	printf("1. ë¡œê·¸ì¸ \n");
+	printf("2. íšŒì›ê°€ì… \n");
+	printf("3. ì·¨ì†Œ \n \n");
+	printf("ì„ íƒ: ");
 
 	scanf("%d", &choice);
 
@@ -101,11 +101,11 @@ void OpenMenu()
 {
 	int choice = 0;
 
-	printf("¸ŞÀÎ ¸Ş´º \n \n");
-	printf("1. ¹°°Ç \n");
-	printf("2. ÀÚ»ê \n");
-	printf("3. ·Î±×ÀÎ ¸Ş´º \n \n");
-	printf("¼±ÅÃ: ");
+	printf("ë©”ì¸ ë©”ë‰´ \n \n");
+	printf("1. ë¬¼ê±´ \n");
+	printf("2. ìì‚° \n");
+	printf("3. ë¡œê·¸ì¸ ë©”ë‰´ \n \n");
+	printf("ì„ íƒ: ");
 
 	scanf("%d", &choice);
 
@@ -113,11 +113,11 @@ void OpenMenu()
 	{
 	case 1:
 		system("cls");
-		printf("¹°°Ç \n \n");
-		printf("1. ¹°°Ç µî·Ï \n");
-		printf("2. ¹°°Ç ±¸¸Å \n");
-		printf("3. Ãë¼Ò \n \n");
-		printf("¼±ÅÃ: ");
+		printf("ë¬¼ê±´ \n \n");
+		printf("1. ë¬¼ê±´ ë“±ë¡ \n");
+		printf("2. ë¬¼ê±´ êµ¬ë§¤ \n");
+		printf("3. ì·¨ì†Œ \n \n");
+		printf("ì„ íƒ: ");
 
 		scanf("%d", &choice);
 
@@ -141,8 +141,8 @@ void OpenMenu()
 
 	case 2:
 		system("cls");
-		printf("ÀÚ»ê \n \n");
-		printf("%s´ÔÀÇ ÀÚ»êÀº %d¿øÀÔ´Ï´Ù.", s_members[r_num].ID, s_members[r_num].balance);
+		printf("ìì‚° \n \n");
+		printf("%së‹˜ì˜ ìì‚°ì€ %dì›ì…ë‹ˆë‹¤.", s_members[r_num].ID, s_members[r_num].balance);
 		Sleep(2000);
 		system("cls");
 		break;
@@ -164,13 +164,13 @@ void RegistItem()
 	FILE* it = fopen("item.bin", "ab");
 
 	if (it == NULL) {
-		puts("ÆÄÀÏ¿ÀÇÂ ½ÇÆĞ!");
+		puts("íŒŒì¼ì˜¤í”ˆ ì‹¤íŒ¨!");
 		return;
 	}
 
 	Item item;
 
-	printf("¹°°Ç µî·Ï \n \n");
+	printf("ë¬¼ê±´ ë“±ë¡ \n \n");
 	printf("name: ");
 	scanf("%s", item.name);
 	printf("quantity: ");
@@ -198,7 +198,7 @@ void PurchaseItem()
 	FILE* mb = fopen("member.bin", "wb");
 
 	if (it == NULL || mb == NULL) {
-		puts("ÆÄÀÏ¿ÀÇÂ ½ÇÆĞ!");
+		puts("íŒŒì¼ì˜¤í”ˆ ì‹¤íŒ¨!");
 		return;
 	}
 
@@ -208,29 +208,29 @@ void PurchaseItem()
 
 	if (s_num_items > 0) {
 
-		printf("¹°°Ç ¸ñ·Ï \n \n");
+		printf("ë¬¼ê±´ ëª©ë¡ \n \n");
 
 		while (s_num_items > i) {
-			printf("¹°°Ç ¹øÈ£: %d \n", s_items[i].number);
-			printf("¹°°Ç ÀÌ¸§: %s \n", s_items[i].name);
-			printf("ÆÇ¸ÅÀÚ ÀÌ¸§: %s \n", s_items[i].shopername);
-			printf("¹°°Ç °³¼ö: %d \n", s_items[i].quantity);
-			printf("¹°°Ç °¡°İ: %d \n \n", s_items[i].amount);
+			printf("ë¬¼ê±´ ë²ˆí˜¸: %d \n", s_items[i].number);
+			printf("ë¬¼ê±´ ì´ë¦„: %s \n", s_items[i].name);
+			printf("íŒë§¤ì ì´ë¦„: %s \n", s_items[i].shopername);
+			printf("ë¬¼ê±´ ê°œìˆ˜: %d \n", s_items[i].quantity);
+			printf("ë¬¼ê±´ ê°€ê²©: %d \n \n", s_items[i].amount);
 			++i;
 		}
 
-		printf("¼±ÅÃ: ");
+		printf("ì„ íƒ: ");
 		scanf("%d", &choice);
 		system("cls");
 
 		i = choice;
 
-		printf("¹°°Ç ¹øÈ£: %d \n", s_items[i].number);
-		printf("¹°°Ç ÀÌ¸§: %s \n", s_items[i].name);
-		printf("ÆÇ¸ÅÀÚ ÀÌ¸§: %s \n", s_items[i].shopername);
-		printf("ÀÌ ¹°°ÇÀ» ±¸¸ÅÇÏ½Ã°Ú½À´Ï±î? \n \n");
+		printf("ë¬¼ê±´ ë²ˆí˜¸: %d \n", s_items[i].number);
+		printf("ë¬¼ê±´ ì´ë¦„: %s \n", s_items[i].name);
+		printf("íŒë§¤ì ì´ë¦„: %s \n", s_items[i].shopername);
+		printf("ì´ ë¬¼ê±´ì„ êµ¬ë§¤í•˜ì‹œê² ìŠµë‹ˆê¹Œ? \n \n");
 
-		printf("¼±ÅÃ: ");
+		printf("ì„ íƒ: ");
 		scanf("%d", &choice);
 
 		if (choice != 0) {
@@ -269,12 +269,12 @@ void SignIn()
 	FILE* mb = fopen("rogin.txt", "wt");
 
 	if (mb == NULL) {
-		puts("ÆÄÀÏ¿ÀÇÂ ½ÇÆĞ!");
+		puts("íŒŒì¼ì˜¤í”ˆ ì‹¤íŒ¨!");
 		return;
 	}
 
 	do {
-		printf("·Î±×ÀÎ \n \n");
+		printf("ë¡œê·¸ì¸ \n \n");
 		printf("ID: ");
 		scanf("%s", ID);
 
@@ -294,8 +294,8 @@ void SignIn()
 			return;
 		}
 		else {
-			printf("¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù. \n");
-			printf("´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			printf("ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. \n");
+			printf("ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			Sleep(1250);
 			system("cls");
 		}
@@ -307,7 +307,7 @@ void SignUp()
 	FILE* mb = fopen("member.bin", "ab");
 
 	if (mb == NULL) {
-		puts("ÆÄÀÏ¿ÀÇÂ ½ÇÆĞ!");
+		puts("íŒŒì¼ì˜¤í”ˆ ì‹¤íŒ¨!");
 		return;
 	}
 
@@ -317,7 +317,7 @@ void SignUp()
 	Member member;
 
 	do {
-		printf("È¸¿ø°¡ÀÔ \n \n");
+		printf("íšŒì›ê°€ì… \n \n");
 		printf("ID: ");
 		scanf("%s", member.ID);
 
@@ -325,8 +325,8 @@ void SignUp()
 		for (int i = 0; i < s_num_members; ++i) {
 			if (strcmp(member.ID, s_members[i].ID) == 0) {
 				system("cls");
-				printf("Áßº¹µÇ´Â ¾ÆÀÌµğÀÔ´Ï´Ù. \n");
-				printf("´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				printf("ì¤‘ë³µë˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤. \n");
+				printf("ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				Sleep(1250);
 				system("cls");
 				same = 1;
@@ -340,7 +340,7 @@ void SignUp()
 	system("cls");
 
 	do {
-		printf("°èÁÂ¹øÈ£ \n \n");
+		printf("ê³„ì¢Œë²ˆí˜¸ \n \n");
 		printf("account: ");
 		scanf("%s", member.account);
 
@@ -348,8 +348,8 @@ void SignUp()
 		for (int i = 0; i < s_num_members; ++i) {
 			if (strcmp(member.account, s_members[i].account) == 0) {
 				system("cls");
-				printf("Áßº¹µÇ´Â °èÁÂ¹øÈ£ÀÔ´Ï´Ù. \n");
-				printf("´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				printf("ì¤‘ë³µë˜ëŠ” ê³„ì¢Œë²ˆí˜¸ì…ë‹ˆë‹¤. \n");
+				printf("ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				Sleep(1250);
 				system("cls");
 				same = 1;
