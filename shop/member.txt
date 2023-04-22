@@ -1,3 +1,0 @@
-ID : abcd
-password : abcd
-account :
