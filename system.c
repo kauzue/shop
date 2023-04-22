@@ -58,6 +58,7 @@ void Init()
 	}
 	*/
 
+	fclose(it);
 	fclose(mb);
 }
 
@@ -65,11 +66,11 @@ void OpenRoginMenu()
 {
 	int choice = 0;
 
-	printf("*****로그인 메뉴***** \n \n");
+	printf("로그인 메뉴 \n \n");
 	printf("1. 로그인 \n");
 	printf("2. 회원가입 \n");
 	printf("3. 취소 \n \n");
-	printf("선택 : ");
+	printf("선택: ");
 
 	scanf("%d", &choice);
 
@@ -91,7 +92,7 @@ void OpenRoginMenu()
 		return;
 
 	default:
-		OpenRoginMenu();
+		system("cls");
 		break;
 	}
 }
@@ -100,11 +101,11 @@ void OpenMenu()
 {
 	int choice = 0;
 
-	printf("*****메인 메뉴***** \n \n");
+	printf("메인 메뉴 \n \n");
 	printf("1. 물건 \n");
 	printf("2. 자산 \n");
 	printf("3. 로그인 메뉴 \n \n");
-	printf("선택 : ");
+	printf("선택: ");
 
 	scanf("%d", &choice);
 
@@ -112,18 +113,35 @@ void OpenMenu()
 	{
 	case 1:
 		system("cls");
-		printf("*****물건***** \n \n");
+		printf("물건 \n \n");
 		printf("1. 물건 등록 \n");
 		printf("2. 물건 구매 \n");
 		printf("3. 취소 \n \n");
-		printf("선택 : ");
+		printf("선택: ");
 
 		scanf("%d", &choice);
+
+		system("cls");
+
+		switch (choice)
+		{
+		case 1:
+			RegistItem();
+			break;
+
+		case 2:
+			PurchaseItem();
+			break;
+
+		case 3:
+			menu = 2;
+			return;
+		}
 		break;
 
 	case 2:
 		system("cls");
-		printf("*****자산***** \n \n");
+		printf("자산 \n \n");
 		printf("%s님의 자산은 %d원입니다.", s_members[r_num].ID, s_members[r_num].balance);
 		Sleep(2000);
 		system("cls");
@@ -138,22 +156,6 @@ void OpenMenu()
 		break;
 	}
 
-	switch (choice)
-	{
-	case 1:
-		system("cls");
-		RegistItem();
-		break;
-
-	case 2:
-		PurchaseItem();
-		break;
-
-	case 3:
-		system("cls");
-		menu = 2;
-		return;
-	}
 
 }
 
@@ -168,18 +170,21 @@ void RegistItem()
 
 	Item item;
 
-	printf("****물건 등록**** \n \n");
-	printf("name : ");
+	printf("물건 등록 \n \n");
+	printf("name: ");
 	scanf("%s", item.name);
-	printf("amount : ");
-	scanf("%d", &item.amount);
-	printf("quantity : ");
+	printf("quantity: ");
 	scanf("%d", &item.quantity);
+	printf("amount: ");
+	scanf("%d", &item.amount);
 
-	strcpy(item.shoper, s_members[r_num].ID);
+	strcpy(item.shopername, s_members[r_num].ID);
+
+	item.number = s_num_items;
 
 	memcpy(&s_items[s_num_items], &item, sizeof(Item));
-	++s_num_members;
+	++s_num_items;
+
 
 	fwrite(&item, sizeof(Item), 1, it);
 
@@ -189,7 +194,70 @@ void RegistItem()
 
 void PurchaseItem()
 {
+	FILE* it = fopen("item.bin", "wb");
+	FILE* mb = fopen("member.bin", "wb");
 
+	if (it == NULL || mb == NULL) {
+		puts("파일오픈 실패!");
+		return;
+	}
+
+	Member member;
+
+	int i = 0, choice;
+
+	if (s_num_items > 0) {
+
+		printf("물건 목록 \n \n");
+
+		while (s_num_items > i) {
+			printf("물건 번호: %d \n", s_items[i].number);
+			printf("물건 이름: %s \n", s_items[i].name);
+			printf("판매자 이름: %s \n", s_items[i].shopername);
+			printf("물건 개수: %d \n", s_items[i].quantity);
+			printf("물건 가격: %d \n \n", s_items[i].amount);
+			++i;
+		}
+
+		printf("선택: ");
+		scanf("%d", &choice);
+		system("cls");
+
+		i = choice;
+
+		printf("물건 번호: %d \n", s_items[i].number);
+		printf("물건 이름: %s \n", s_items[i].name);
+		printf("판매자 이름: %s \n", s_items[i].shopername);
+		printf("이 물건을 구매하시겠습니까? \n \n");
+
+		printf("선택: ");
+		scanf("%d", &choice);
+
+		if (choice != 0) {
+			s_members[r_num].balance = s_members[r_num].balance - s_items[i].amount;
+			if (s_items[i].quantity == 1) {
+
+				while (i <= s_num_items) {
+					s_items[i].number--;
+					s_items[i - 1] = s_items[i];
+					++i;
+				}
+				--s_num_items;
+			}
+
+			else {
+				s_items[i].quantity--;
+			}
+
+			fwrite(s_items, sizeof(Item), s_num_items, it);
+			fwrite(s_members, sizeof(Member), s_num_members, mb);
+		}
+
+	}
+
+	fclose(it);
+	fclose(mb);
+	system("cls");
 }
 
 void SignIn()
@@ -206,11 +274,11 @@ void SignIn()
 	}
 
 	do {
-		printf("*****로그인***** \n \n");
-		printf("ID : ");
+		printf("로그인 \n \n");
+		printf("ID: ");
 		scanf("%s", ID);
 
-		printf("Password : ");
+		printf("Password: ");
 		scanf("%s", Password);
 		system("cls");
 
@@ -249,8 +317,8 @@ void SignUp()
 	Member member;
 
 	do {
-		printf("*****회원가입***** \n \n");
-		printf("ID : ");
+		printf("회원가입 \n \n");
+		printf("ID: ");
 		scanf("%s", member.ID);
 
 		same = 0;
@@ -272,8 +340,8 @@ void SignUp()
 	system("cls");
 
 	do {
-		printf("*****계좌번호***** \n \n");
-		printf("account : ");
+		printf("계좌번호 \n \n");
+		printf("account: ");
 		scanf("%s", member.account);
 
 		same = 0;
@@ -290,7 +358,7 @@ void SignUp()
 		}
 	} while (same);
 
-	printf("balance : ");
+	printf("balance: ");
 	scanf("%d", &member.balance);
 	system("cls");
 

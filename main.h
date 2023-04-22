@@ -15,9 +15,10 @@ typedef struct Member
 typedef struct Item
 {
 	char name[100];
-	char shoper[100];
+	char shopername[100];
 	int amount;
 	int quantity;
+	int number;
 } Item;
 
 extern int menu;
