@@ -20,7 +20,7 @@ void Init()
 	FILE* mb = fopen("member.bin", "rb");
 
 	if (it == NULL || mb == NULL) {
-		puts("파일오픈 실패!!!!!!!!!!");
+		puts("파일오픈 실패!");
 		return;
 	}
 
