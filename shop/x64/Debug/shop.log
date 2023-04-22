@@ -1,7 +1,0 @@
-﻿  system.c
-C:\Users\kauzu\source\repos\shop\shop\system.c(19,12): warning C4098: 'Init': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\kauzu\source\repos\shop\shop\system.c(80,12): warning C4098: 'OpenRoginMenu': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\kauzu\source\repos\shop\shop\system.c(127,12): warning C4098: 'OpenMenu': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\kauzu\source\repos\shop\shop\system.c(164,12): warning C4098: 'SignIn': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\kauzu\source\repos\shop\shop\system.c(204,12): warning C4098: 'SignUp': 'void' 함수에서 값을 반환하고 있습니다.
-  shop.vcxproj -> C:\Users\kauzu\source\repos\shop\x64\Debug\shop.exe
