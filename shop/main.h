@@ -15,7 +15,7 @@ typedef struct Member
 typedef struct Item
 {
 	char name[100];
-	char shopername[100];
+	int regist;
 	int amount;
 	int quantity;
 	int number;
@@ -26,7 +26,9 @@ extern int menu;
 void Init();
 void OpenRoginMenu();
 void OpenMenu();
+void OpenItemList();
 void RegistItem();
+void DeleteItem();
 void PurchaseItem();
 void SignIn();
 void SignUp();
