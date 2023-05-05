@@ -16,7 +16,7 @@ typedef struct Item
 {
 	char name[100];
 	int regist;
-	int amount;
+	int cost;
 	int quantity;
 	int number;
 } Item;

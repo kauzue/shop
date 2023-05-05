@@ -183,7 +183,7 @@ void OpenItemList()
 			printf("물건 이름: %s \n", s_items[num].name);
 			printf("판매자 이름: %s \n", s_members[s_items[num].regist].ID);
 			printf("물건 개수: %d \n", s_items[num].quantity);
-			printf("물건 가격: %d \n \n", s_items[num].amount);
+			printf("물건 가격: %d \n \n", s_items[num].cost);
 			++num;
 		}
 
@@ -215,7 +215,7 @@ void RegistItem()
 	printf("물건 개수: ");
 	scanf("%d", &item.quantity);
 	printf("물건 가격: ");
-	scanf("%d", &item.amount);
+	scanf("%d", &item.cost);
 
 	item.regist = r_num;
 
@@ -251,7 +251,7 @@ void DeleteItem()
 				printf("물건 번호: %d \n", s_items[choice].number);
 				printf("물건 이름: %s \n", s_items[choice].name);
 				printf("물건 개수: %d \n", s_items[choice].quantity);
-				printf("물건 가격: %d \n \n", s_items[choice].amount);
+				printf("물건 가격: %d \n \n", s_items[choice].cost);
 			}
 			++choice;
 		}
@@ -315,7 +315,7 @@ void PurchaseItem()
 			printf("물건 이름: %s \n", s_items[choice].name);
 			printf("판매자 이름: %s \n", s_members[s_items[choice].regist].ID);
 			printf("물건 개수: %d \n", s_items[choice].quantity);
-			printf("물건 가격: %d \n \n", s_items[choice].amount);
+			printf("물건 가격: %d \n \n", s_items[choice].cost);
 			++choice;
 		}
 
@@ -323,7 +323,7 @@ void PurchaseItem()
 		scanf("%d", &choice);
 		system("cls");
 
-		if (s_members[r_num].balance < s_items[choice].amount) {
+		if (s_members[r_num].balance < s_items[choice].cost) {
 			printf("잔액이 부족합니다.");
 			Sleep(1250);
 			system("cls");
@@ -341,8 +341,8 @@ void PurchaseItem()
 		}
 
 		if (strcmp(choose, "예") == 0) {
-			s_members[r_num].balance = s_members[r_num].balance - s_items[choice].amount;
-			s_members[s_items[choice].regist].balance = s_members[s_items[choice].regist].balance + s_items[choice].amount;
+			s_members[r_num].balance = s_members[r_num].balance - s_items[choice].cost;
+			s_members[s_items[choice].regist].balance = s_members[s_items[choice].regist].balance + s_items[choice].cost;
 
 			if (s_items[choice].quantity == 1) {
 
