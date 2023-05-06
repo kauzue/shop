@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <stddef.h>
 #include <conio.h>
+#include <winsock.h>
 
 #include "main.h"
 
@@ -74,26 +75,24 @@ void OpenRoginMenu()
 	printf("선택: ");
 
 	scanf("%d", &choice);
+	system("cls");
 
 	switch (choice)
 	{
 	case 1:
-		system("cls");
 		SignIn();
 		break;
 
 	case 2:
-		system("cls");
 		SignUp();
 		break;
 
 	case 3:
-		system("cls");
 		menu = 0;
-		return;
+		break;
 
 	default:
-		system("cls");
+	
 		break;
 	}
 }
@@ -153,9 +152,29 @@ void OpenMenu()
 	case 2:
 		system("cls");
 		printf("자산 \n \n");
-		printf("%s님의 자산은 %d원입니다.", s_members[r_num].ID, s_members[r_num].balance);
-		Sleep(2000);
+		printf("1. 자산 확인 \n");
+		printf("2. 자산 수정 \n");
+		printf("3. 취소 \n \n");
+		printf("선택: ");
+
+		scanf("%d", &choice);
+
 		system("cls");
+
+		switch (choice)
+		{
+		case 1:
+			CheckBalance();
+			break;
+
+		case 2:
+			ConfigBalance();
+			break;
+
+		case 3:
+			menu = 2;
+			return;
+		}
 		break;
 
 	case 3:
@@ -208,6 +227,7 @@ void RegistItem()
 	}
 
 	Item item;
+	int same = 1;
 
 	printf("물건 등록 \n \n");
 	printf("물건 이름: ");
@@ -217,15 +237,30 @@ void RegistItem()
 	printf("물건 가격: ");
 	scanf("%d", &item.cost);
 
-	item.regist = r_num;
+	for (int i = 0; i < s_num_items; ++i) {
+		if (strcmp(item.name, s_items[i].name) == 0 && r_num == s_items[i].regist) {
+			system("cls");
+			printf("중복되는 물건입니다. \n");
+			printf("물건을 제거하고 다시 시도해 주세요.");
+			--same;
+			Sleep(1250);
+			system("cls");
+			break;
+		}
+	}
+	while (same) {
+		item.regist = r_num;
 
-	item.number = s_num_items;
+		item.number = s_num_items;
 
-	memcpy(&s_items[s_num_items], &item, sizeof(Item));
-	++s_num_items;
+		memcpy(&s_items[s_num_items], &item, sizeof(Item));
+		++s_num_items;
 
+		fwrite(&item, sizeof(Item), 1, it);
 
-	fwrite(&item, sizeof(Item), 1, it);
+		--same;
+	}
+
 
 	fclose(it);
 	system("cls");
@@ -375,18 +410,64 @@ void PurchaseItem()
 	system("cls");
 }
 
-void SignIn()
+void CheckBalance()
 {
-	char ID[100];
-	char Password[100];
-	int b_login = 0;
+	system("cls");
+	printf("자산 \n \n");
+	printf("%s님의 자산은 %d원입니다.", s_members[r_num].ID, s_members[r_num].balance);
 
-	FILE* mb = fopen("rogin.txt", "wt");
+	getch();
+	system("cls");
+}
+
+void ConfigBalance()
+{
+	FILE* mb = fopen("member.bin", "wb");
 
 	if (mb == NULL) {
 		puts("파일오픈 실패!");
 		return;
 	}
+
+	int choice;
+
+	system("cls");
+	printf("자산 \n \n");
+	printf("%s님의 자산은 %d원입니다. \n", s_members[r_num].ID, s_members[r_num].balance);
+	printf("자산을 수정하시겠습니까? \n \n");
+	printf("1. 예 \n");
+	printf("2. 아니요 \n \n");
+
+	printf("선택: ");
+	scanf("%d", &choice);
+	system("cls");
+
+	switch (choice)
+	{
+	case 1:
+		printf("자산: %d \n \n", s_members[r_num].balance);
+		printf("수정할 금액: ");
+		scanf("%d", &choice);
+
+		system("cls");
+		s_members[r_num].balance = choice;
+		break;
+
+	case 2:
+		menu = 2;
+		return;
+	}
+
+	fwrite(s_members, sizeof(Member), s_num_members, mb);
+
+	fclose(mb);
+}
+
+void SignIn()
+{
+	char ID[100];
+	char Password[100];
+	int b_login = 0;
 
 	do {
 		printf("로그인 \n \n");
@@ -404,17 +485,15 @@ void SignIn()
 			}
 		}
 
-		if (b_login) {
-			menu = 2;
-			return;
-		}
-		else {
+		if (!b_login) {
 			printf("아이디 또는 비밀번호가 틀렸습니다. \n");
 			printf("다시 입력해주세요.");
 			Sleep(1250);
 			system("cls");
 		}
-	} while (b_login);
+	} while (!b_login);
+
+	menu = 2;
 }
 
 void SignUp()

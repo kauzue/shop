@@ -30,5 +30,7 @@ void OpenItemList();
 void RegistItem();
 void DeleteItem();
 void PurchaseItem();
+void CheckBalance();
+void ConfigBalance();
 void SignIn();
 void SignUp();
